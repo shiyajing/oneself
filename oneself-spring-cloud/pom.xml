@@ -49,5 +49,7 @@
 	<modules>
 		<module>oneself-discovery-eureka</module>
 		<module>oneself-provider-qrcode</module>
+		<module>oneself-provider-user</module>
+		<module>oneself-consumer-movie-ribbon</module>
 	</modules>
 </project>
