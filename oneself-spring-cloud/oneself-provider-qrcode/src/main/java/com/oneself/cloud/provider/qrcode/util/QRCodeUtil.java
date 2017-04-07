@@ -90,7 +90,7 @@ public class QRCodeUtil {
                 hints);  
         int width = bitMatrix.getWidth();  
         int height = bitMatrix.getHeight();
-        int backgroundColor=StringUtils.isEmpty(onColor)?FORECOLOR:toInt(onColor);
+        int backgroundColor=StringUtils.isEmpty(offColor)?FORECOLOR:toInt(offColor);
         int frontColor=StringUtils.isEmpty(onColor)?BACKCOLOR:toInt(offColor);
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);  
         for (int x = 0; x < width; x++) {  
