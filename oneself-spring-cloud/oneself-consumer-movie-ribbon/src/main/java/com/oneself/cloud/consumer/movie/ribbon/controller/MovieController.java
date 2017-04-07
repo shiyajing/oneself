@@ -1,4 +1,4 @@
-package com.oneself.consumer.movie.ribbon.controller;
+package com.oneself.cloud.consumer.movie.ribbon.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.oneself.consumer.movie.ribbon.entity.UserInfo;
+import com.oneself.cloud.consumer.movie.ribbon.entity.UserInfo;
 
 @RestController
 public class MovieController {
@@ -17,14 +17,15 @@ public class MovieController {
   @Autowired
   private LoadBalancerClient loadBalancerClient;
 
-  @GetMapping("/movie/{username}")
+  @GetMapping("/ribbon/{username}")
   public UserInfo findById(@PathVariable String username) {
+	  // http://服务提供者的serviceId/url
     return this.restTemplate.getForObject("http://oneself-provider-user/userinfo/simple/" + username, UserInfo.class);
   }
 
   @GetMapping("/test")
   public String test() {
-    ServiceInstance serviceInstance = this.loadBalancerClient.choose("microservice-provider-user");
+    ServiceInstance serviceInstance = this.loadBalancerClient.choose("oneself-provider-user");
     System.out.println("111" + ":" + serviceInstance.getServiceId() + ":" + serviceInstance.getHost() + ":" + serviceInstance.getPort());
 
     ServiceInstance serviceInstance2 = this.loadBalancerClient.choose("microservice-provider-user2");

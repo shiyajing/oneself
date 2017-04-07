@@ -1,4 +1,4 @@
-package com.oneself.consumer.movie.ribbon;
+package com.oneself.cloud.consumer.movie.ribbon;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

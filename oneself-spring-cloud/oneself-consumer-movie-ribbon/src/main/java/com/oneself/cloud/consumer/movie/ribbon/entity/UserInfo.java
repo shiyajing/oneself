@@ -1,4 +1,4 @@
-package com.oneself.consumer.movie.ribbon.entity;
+package com.oneself.cloud.consumer.movie.ribbon.entity;
 
 import java.io.Serializable;
 
