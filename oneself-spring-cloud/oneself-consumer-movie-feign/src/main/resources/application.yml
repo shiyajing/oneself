@@ -1,0 +1,15 @@
+server:
+  port: 8020
+spring:
+  application:
+    name: oneself-consumer-movie-feign
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8760/eureka/
+  instance:
+    preferIpAddress: true
+ribbon:
+  eureka:
+    enabled: true
