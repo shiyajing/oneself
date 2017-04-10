@@ -1,5 +1,5 @@
 server:
-  port: 8761
+  port: 8002
   
 spring:
   application:
@@ -9,5 +9,7 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://discovery:8760/eureka/
+      #这个oneself-discovery-eureka-high工程代表高可用服务注册中心
+      #defaultZone: http://peer1:8761/eureka/,http://peer2:8762/eureka #高可用
   instance:
     prefer-ip-address: true

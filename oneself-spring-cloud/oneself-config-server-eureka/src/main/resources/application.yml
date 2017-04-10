@@ -1,0 +1,17 @@
+server:
+  port: 8050
+spring:
+  application:
+    name: oneself-config-server-eureka
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/shiyajing/oneself/
+          search-paths: config-repo
+          username: 
+          password: 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8760/eureka/

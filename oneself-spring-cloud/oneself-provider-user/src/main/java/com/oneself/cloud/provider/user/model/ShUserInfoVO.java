@@ -1,8 +1,8 @@
-package com.oneself.cloud.provider.user.entity;
+package com.oneself.cloud.provider.user.model;
 
 import java.io.Serializable;
 
-public class UserInfo implements Serializable {
+public class ShUserInfoVO implements Serializable {
 
 	/**
 	 * 
@@ -14,10 +14,10 @@ public class UserInfo implements Serializable {
 	private String userPassword;
 	private String delFlag;
 
-	public UserInfo() {
+	public ShUserInfoVO() {
 	}
 
-	public UserInfo(String userId, String userName, String userPassword, String delFlag) {
+	public ShUserInfoVO(String userId, String userName, String userPassword, String delFlag) {
 		super();
 		this.userId = userId;
 		this.userName = userName;

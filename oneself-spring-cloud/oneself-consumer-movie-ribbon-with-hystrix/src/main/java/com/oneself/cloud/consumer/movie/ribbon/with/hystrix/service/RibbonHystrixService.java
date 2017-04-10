@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.oneself.cloud.consumer.movie.ribbon.with.hystrix.entity.UserInfo;
+import com.oneself.cloud.consumer.movie.ribbon.with.hystrix.model.ShUserInfoVO;
 
 @Service
 public class RibbonHystrixService {
@@ -24,8 +24,8 @@ public class RibbonHystrixService {
 	 * @return 通过id查询到的用户
 	 */
 	@HystrixCommand(fallbackMethod = "fallback")
-	public UserInfo findById(String name) {
-		return this.restTemplate.getForObject("http://oneself-provider-user/userinfo/simple/" + name, UserInfo.class);
+	public ShUserInfoVO findById(String name) {
+		return this.restTemplate.getForObject("http://oneself-provider-user/userinfo/simple/getUser/" + name, ShUserInfoVO.class);
 	}
 	
 	/**
@@ -33,9 +33,9 @@ public class RibbonHystrixService {
 	   * @param id id
 	   * @return 默认的用户
 	   */
-	  public UserInfo fallback(String name) {
+	  public ShUserInfoVO fallback(String name) {
 	    RibbonHystrixService.LOGGER.info("异常发生，进入fallback方法，接收的参数：name = {}", name);
-	    UserInfo user = new UserInfo();
+	    ShUserInfoVO user = new ShUserInfoVO();
 	    user.setUserId("-1L");
 	    user.setUserName("default username");
 	    user.setUserPassword("123456");

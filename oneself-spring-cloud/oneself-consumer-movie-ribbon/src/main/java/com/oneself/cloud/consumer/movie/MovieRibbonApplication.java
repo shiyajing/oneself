@@ -1,4 +1,4 @@
-package com.oneself.cloud.consumer.movie.ribbon;
+package com.oneself.cloud.consumer.movie;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,7 +10,11 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @EnableDiscoveryClient
 public class MovieRibbonApplication {
-
+	
+	/**
+	 * 实例化RestTemplate，通过@LoadBalanced注解开启均衡负载能力.
+	 * @return
+	 */
 	@Bean
 	@LoadBalanced
 	public RestTemplate restTemplate(){

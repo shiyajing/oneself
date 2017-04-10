@@ -1,20 +1,29 @@
 package com.oneself.cloud.provider.user.controller;
 
+import java.util.List;
 import java.util.UUID;
-
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.parser.Feature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.oneself.cloud.provider.user.entity.UserInfo;
+
+import com.oneself.cloud.provider.user.model.ShUserInfoVO;
+import com.oneself.cloud.provider.user.service.IUserInfoService;
 
 @RestController
 @RequestMapping(value = "/userinfo", produces = "application/json;charset=UTF-8")
 public class UserController {
+	
+	@Autowired
+	IUserInfoService service;
 
 	@Autowired
 	private DiscoveryClient discoveryClient;
@@ -27,13 +36,18 @@ public class UserController {
 	 * @param username
 	 * @return user信息
 	 */
-	@GetMapping("/simple/{username}")
-	public @ResponseBody UserInfo findById(@PathVariable String username) {
-		UserInfo user = new UserInfo();
+	@GetMapping("/simple/getUser/{username}")
+	public @ResponseBody ShUserInfoVO findById(@PathVariable String username) {
+		List<ShUserInfoVO> user=service.queryUser(username);
+		return user.get(0);
+	}
+	
+	@PostMapping("/simple/register")
+	public @ResponseBody ShUserInfoVO register(@RequestBody String json) {
+		ShUserInfoVO user = JSONObject.parseObject(json, ShUserInfoVO.class, Feature.AllowSingleQuotes);
 		user.setUserId(UUID.randomUUID().toString().replace("-", ""));
-		user.setUserName(username);
-		user.setUserPassword("123456");
-		return user;
+		ShUserInfoVO vo=service.saveUser(user);
+		return vo;
 	}
 
 	/**

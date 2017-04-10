@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oneself.cloud.consumer.movie.feign.client.UserFeignClient;
-import com.oneself.cloud.consumer.movie.feign.entity.UserInfo;
+import com.oneself.cloud.consumer.movie.feign.model.ShUserInfoVO;
 
 @RestController
 public class FeignController {
@@ -15,8 +15,8 @@ public class FeignController {
 	private UserFeignClient userFeignClient;
 
 	@GetMapping("feign/{name}")
-	public UserInfo findByIdFeign(@PathVariable String name) {
-		UserInfo user = this.userFeignClient.findByIdFeign(name);
+	public ShUserInfoVO findByIdFeign(@PathVariable String name) {
+		ShUserInfoVO user = this.userFeignClient.findByIdFeign(name);
 		return user;
 	}
 }

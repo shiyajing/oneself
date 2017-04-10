@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oneself.cloud.userinfo.config.ShUserInfo">	
+                   
+	<select id="query" parameterType="java.util.Map"
+		resultType="com.oneself.cloud.provider.user.model.ShUserInfoVO">
+		select 
+			user_id as userId,
+            user_name as userName,
+            user_password as userPassword,
+            del_flag as delFlag
+		from sh_user_info
+		where 1=1
+		<if test="userId != null and userId != ''">
+			AND user_id = #{userId}
+		</if> 
+		<if test="userName != null and userName != ''">
+			AND user_name = #{userName}
+		</if> 
+		<if test="userPassword != null and userPassword != ''">
+			AND user_password = #{userPassword}
+		</if> 
+		<if test="delFlag != null and delFlag != ''">
+			AND del_flag = #{delFlag}
+		</if> 
+		<if test="orderStr != null and orderStr != ''">
+            order by ${orderStr} 
+        </if>
+	</select>
+	
+	<select id="count" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select 
+		count(1)
+		from sh_user_info
+		where 1=1
+		<if test="userId != null and userId != ''">
+            AND user_id = #{userId}
+        </if> 
+        <if test="userName != null and userName != ''">
+            AND user_name = #{userName}
+        </if> 
+        <if test="userPassword != null and userPassword != ''">
+            AND user_password = #{userPassword}
+        </if> 
+        <if test="delFlag != null and delFlag != ''">
+            AND del_flag = #{delFlag}
+        </if> 
+	</select>	
+	
+	<insert id="insert" parameterType="com.oneself.cloud.provider.user.model.ShUserInfoVO">
+		INSERT INTO sh_user_info(
+			<if test="userId !=null and userId!='' ">   
+	           user_id
+	        </if>  
+ 	       <if test="userName !=null and userName!='' ">   
+	          ,user_name   
+	        </if>  
+ 	        <if test="userPassword !=null and userPassword!='' ">   
+	          ,user_password   
+	        </if>  
+ 	        <if test="delFlag !=null and delFlag!='' ">   
+	          ,del_flag   
+	        </if>  
+ 		)
+		values(
+			 <if test="userId !=null and userId!='' ">   
+               #{userId}
+            </if>  
+            <if test="userName !=null and userName!='' ">   
+              ,#{userName}
+            </if>  
+            <if test="userPassword !=null and userPassword!='' ">   
+              ,#{userPassword}
+            </if>  
+            <if test="delFlag !=null and delFlag!='' ">   
+              ,#{delFlag}  
+            </if> 
+ 		)
+	</insert>
+	
+	<update id="update" parameterType="com.oneself.cloud.provider.user.model.ShUserInfoVO">
+		update sh_user_info  
+		<trim prefix="SET" suffixOverrides=",">   
+		    <if test="userName !=null and userName!='' ">   
+	            user_name = #{userName}   ,
+	        </if>  
+ 	        <if test="userPassword !=null and userPassword!='' ">   
+	            user_password = #{userPassword}   ,
+	        </if>  
+ 	        <if test="delFlag !=null and delFlag!='' ">   
+	            del_flag = #{delFlag}   ,
+	        </if>  
+         </trim>
+         WHERE 
+ 	            user_id = #{userId}
+   	</update>
+	
+	<delete id="delete" parameterType="com.oneself.cloud.provider.user.model.ShUserInfoVO">
+	   delete from sh_user_info where 
+	       	          user_id = #{userId}
+   	</delete>
+
+</mapper>

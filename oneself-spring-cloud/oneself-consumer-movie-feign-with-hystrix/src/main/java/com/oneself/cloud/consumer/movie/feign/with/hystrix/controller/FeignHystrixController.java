@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.oneself.cloud.consumer.movie.feign.with.hystrix.entity.UserInfo;
 import com.oneself.cloud.consumer.movie.feign.with.hystrix.feign.UserFeignHystrixClient;
+import com.oneself.cloud.consumer.movie.feign.with.hystrix.model.ShUserInfoVO;
 
 @RestController
 public class FeignHystrixController {
@@ -15,8 +15,8 @@ public class FeignHystrixController {
 	private UserFeignHystrixClient userFeignHystrixClient;
 
 	@GetMapping("feign/{name}")
-	public UserInfo findByIdFeign(@PathVariable String name) {
-		UserInfo user = this.userFeignHystrixClient.findByIdFeign(name);
+	public ShUserInfoVO findByIdFeign(@PathVariable String name) {
+		ShUserInfoVO user = this.userFeignHystrixClient.findByIdFeign(name);
 		return user;
 	}
 
