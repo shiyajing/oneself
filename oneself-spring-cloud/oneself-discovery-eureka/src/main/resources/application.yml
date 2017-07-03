@@ -1,3 +1,10 @@
+security:
+  basic:
+    enabled: true
+  user:
+    name: user
+    password: password123
+
 server:
   port: 8760                    # 指定该Eureka实例的端口
 
@@ -5,7 +12,9 @@ eureka:
   instance:
     hostname: discovery         # 指定该Eureka实例的主机名
   client:
+    healthcheck:
+      enabled: true
     registerWithEureka: false
     fetchRegistry: false
     serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      defaultZone: http://user:password@${eureka.instance.hostname}:${server.port}/eureka/

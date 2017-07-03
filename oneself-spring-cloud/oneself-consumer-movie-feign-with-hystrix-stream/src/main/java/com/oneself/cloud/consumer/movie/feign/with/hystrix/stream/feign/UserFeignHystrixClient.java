@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.oneself.cloud.consumer.movie.feign.with.hystrix.stream.feign.UserFeignHystrixClient.HystrixClientFallback;
-import com.oneself.cloud.consumer.movie.feign.with.hystrix.stream.entity.UserInfo;
+import com.oneself.cloud.consumer.movie.feign.with.hystrix.stream.model.ShUserInfoVO;
 
 /**
  * 使用@FeignClient注解的fallback属性，指定fallback类
@@ -20,8 +20,8 @@ import com.oneself.cloud.consumer.movie.feign.with.hystrix.stream.entity.UserInf
 @FeignClient(name = "oneself-provider-user", fallback = HystrixClientFallback.class)
 public interface UserFeignHystrixClient {
 
-	@RequestMapping("userinfo/simple/{username}")
-	public UserInfo findByIdFeign(@RequestParam("username") String username);
+	@RequestMapping("userinfo/simple/getUser/{username}")
+	public ShUserInfoVO findByIdFeign(@RequestParam("username") String username);
 
 	/**
 	 * 这边采取了和Spring
@@ -42,9 +42,9 @@ public interface UserFeignHystrixClient {
 		 * @return
 		 */
 		@Override
-		public UserInfo findByIdFeign(String username) {
+		public ShUserInfoVO findByIdFeign(String username) {
 			HystrixClientFallback.LOGGER.info("异常发生，进入fallback方法，接收的参数：username = {}", username);
-			UserInfo user = new UserInfo();
+			ShUserInfoVO user = new ShUserInfoVO();
 			user.setUserId("-1L");
 			user.setUserName("default username");
 			user.setUserPassword("123456");

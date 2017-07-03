@@ -2,7 +2,7 @@ spring:
   application:
     name: oneself-api-gateway
 server:
-  port: 8060
+  port: 8050
 eureka:
   instance:
     hostname: gateway

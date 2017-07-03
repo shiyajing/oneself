@@ -1,0 +1,15 @@
+server:
+  port: 8014
+  
+spring:
+  application:
+    name: oneself-consumer-movie-ribbon-test
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://user:password123@discovery:8760/eureka/
+      #defaultZone: http://peer1:8761/eureka/,http://peer2:8762/eureka #高可用
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}

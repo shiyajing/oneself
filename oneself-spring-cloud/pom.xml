@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.oneself.cloud</groupId>
@@ -77,20 +76,33 @@
 
     <modules>
         <module>oneself-discovery-eureka</module>
+        <module>oneself-discovery-eureka-high</module>
+        
         <module>oneself-provider-qrcode</module>
         <module>oneself-provider-user</module>
+        
+        <module>oneself-consumer-movie</module>
         <module>oneself-consumer-movie-ribbon</module>
-        <module>oneself-consumer-movie-feign</module>
+		<module>oneself-consumer-movie-ribbon-test</module>
+		<module>oneself-consumer-movie-ribbon-properties-customizing</module>
+        <module>oneself-consumer-movie-ribbon-without-eureka</module>
         <module>oneself-consumer-movie-ribbon-with-hystrix</module>
-        <module>oneself-consumer-movie-feign-with-hystrix</module>
-        <module>oneself-hystrix-dashboard</module>
+		<module>oneself-consumer-movie-ribbon-with-hystrix2</module>
+        
+        <module>oneself-consumer-movie-feign</module>
+		<module>oneself-consumer-movie-feign-customizing</module>
         <module>oneself-consumer-movie-feign-with-hystrix-stream</module>
+        <module>oneself-consumer-movie-feign-with-hystrix</module>
+        
+        <module>oneself-hystrix-dashboard</module>
         <module>oneself-hystrix-turbine</module>
+        
         <module>oneself-config-server</module>
-        <module>oneself-discovery-eureka-high</module>
         <module>oneself-config-client</module>
         <module>oneself-config-server-eureka</module>
         <module>oneself-config-client-eureka</module>
+        
         <module>oneself-api-gateway</module>
-    </modules>
+        
+  </modules>
 </project>

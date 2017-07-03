@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: oneself-consumer-movie-ribbon-without-eureka
+server:
+  port: 8012
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      defaultZone: http://user:password123@discovery:8760/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+ribbon:
+  eureka:
+   enabled: false
+oneself-provider-user:
+  ribbon:
+    listOfServers: localhost:8001

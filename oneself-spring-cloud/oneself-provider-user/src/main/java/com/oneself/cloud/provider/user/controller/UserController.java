@@ -15,18 +15,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.netflix.appinfo.InstanceInfo;
+import com.netflix.discovery.EurekaClient;
 import com.oneself.cloud.provider.user.model.ShUserInfoVO;
 import com.oneself.cloud.provider.user.service.IUserInfoService;
 
 @RestController
 @RequestMapping(value = "/userinfo", produces = "application/json;charset=UTF-8")
 public class UserController {
-	
+
 	@Autowired
 	IUserInfoService service;
 
 	@Autowired
 	private DiscoveryClient discoveryClient;
+
+	@Autowired
+	private EurekaClient eurekaClient;
 
 	/**
 	 * 注：@GetMapping("/{username}")是spring 4.3的新注解等价于：
@@ -38,15 +43,15 @@ public class UserController {
 	 */
 	@GetMapping("/simple/getUser/{username}")
 	public @ResponseBody ShUserInfoVO findById(@PathVariable String username) {
-		List<ShUserInfoVO> user=service.queryUser(username);
+		List<ShUserInfoVO> user = service.queryUser(username);
 		return user.get(0);
 	}
-	
+
 	@PostMapping("/simple/register")
 	public @ResponseBody ShUserInfoVO register(@RequestBody String json) {
 		ShUserInfoVO user = JSONObject.parseObject(json, ShUserInfoVO.class, Feature.AllowSingleQuotes);
 		user.setUserId(UUID.randomUUID().toString().replace("-", ""));
-		ShUserInfoVO vo=service.saveUser(user);
+		ShUserInfoVO vo = service.saveUser(user);
 		return vo;
 	}
 
@@ -60,4 +65,11 @@ public class UserController {
 		ServiceInstance localServiceInstance = this.discoveryClient.getLocalServiceInstance();
 		return localServiceInstance;
 	}
+
+	@GetMapping("/eureka-instance")
+	public String serviceUrl() {
+		InstanceInfo instance = this.eurekaClient.getNextServerFromEureka("oneself-provider-user", false);
+		return instance.getHomePageUrl();
+	}
+
 }
