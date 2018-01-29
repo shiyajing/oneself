@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.oneself.cloud.provider.dbcroe.base.impl.BaseServiceImpl;
 import com.oneself.cloud.provider.dbcroe.exception.ServiceException;
-import com.oneself.cloud.provider.user.model.ShUserInfoVO;
+import com.oneself.cloud.provider.user.model.SgSysStaffVO;
 import com.oneself.cloud.provider.user.service.IUserInfoService;
 
 /**
@@ -19,17 +19,17 @@ import com.oneself.cloud.provider.user.service.IUserInfoService;
  */
 @Service(IUserInfoService.BEAN_ID)
 @Transactional
-public class UserInfoServiceImpl extends BaseServiceImpl<ShUserInfoVO> implements IUserInfoService{
+public class UserInfoServiceImpl extends BaseServiceImpl<SgSysStaffVO> implements IUserInfoService{
 
 	/* (non-Javadoc)
 	 * @see com.oneself.cloud.provider.user.service.IUserInfoService#queryUser(java.lang.String)
 	 */
 	@Override
-	public List<ShUserInfoVO> queryUser(String name) throws ServiceException {
+	public List<SgSysStaffVO> queryUser(String name) throws ServiceException {
 		Map<String, Object> map=new HashMap<String, Object>();
 		// TODO Auto-generated method stub
-		map.put("userName", name);
-		List<ShUserInfoVO> list=this.find(ShUserInfoVO.class,map);
+		map.put("staffNo", name);
+		List<SgSysStaffVO> list=this.find(SgSysStaffVO.class,map);
 		if (list.size()>0) {
 			return list;
 		}
@@ -37,7 +37,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<ShUserInfoVO> implement
 	}
 	
 	@Override
-	public ShUserInfoVO saveUser(ShUserInfoVO vo)throws ServiceException{
+	public SgSysStaffVO saveUser(SgSysStaffVO vo)throws ServiceException{
 		Integer num=this.insert(vo);
 		if (num>0) {
 			return vo;

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.oneself.cloud.movie.model.ShUserInfoVO;
+import com.oneself.cloud.movie.model.SgSysStaffVO;
 
 @RestController
 public class MovieController {
@@ -19,8 +19,8 @@ public class MovieController {
 	private String userServicePath;
 
 	@GetMapping("/movie/{name}")
-	public ShUserInfoVO findById(@PathVariable String name) {
-		return this.restTemplate.getForObject(this.userServicePath + name, ShUserInfoVO.class);
+	public SgSysStaffVO findById(@PathVariable String name) {
+		return this.restTemplate.getForObject(this.userServicePath + name, SgSysStaffVO.class);
 	}
 
 }

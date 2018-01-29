@@ -30,6 +30,6 @@
 
 	<mappers>
 		<!-- 重要，勿动-->
-		<mapper resource="sqlmap/SqlMapper/userinfo/config/sh-user-info-sqlmap.xml" />
+		<mapper resource="sqlmap/SqlMapper/userinfo/config/sg-sys-staff-sqlmap.xml" />
 	</mappers>
 </configuration>

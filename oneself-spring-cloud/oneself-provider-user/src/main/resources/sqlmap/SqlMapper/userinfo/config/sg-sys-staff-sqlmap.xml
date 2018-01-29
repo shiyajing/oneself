@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oneself.cloud.userinfo.config.SgSysStaff">
+	<select id="query" parameterType="java.util.Map" resultType="com.oneself.cloud.provider.user.model.SgSysStaffVO">
+		SELECT
+			staff_id AS staffId,
+			staff_name AS staffName,
+			staff_no AS staffNo,
+			email AS email,
+			phone AS phone,
+			mobile_phone AS mobilePhone,
+			sex AS sex,
+			address AS address,
+			birthday AS birthday,
+			status AS status,
+			unit_code AS unitCode,
+			ownerunit_id AS ownerunitId,
+			ext1 AS ext1,
+			ext2 AS ext2,
+			ext3 AS ext3,
+			ext4 AS ext4,
+			ext5 AS ext5,
+			ext6 AS ext6,
+			ext7 AS ext7,
+			ext8 AS ext8,
+			ext9 AS ext9,
+			user_type AS userType,
+			user_photo AS userPhoto,
+			remarks AS remarks,
+			update_time AS updateTime,
+			update_user AS updateUser,
+			create_time AS createTime,
+			create_user AS createUser,
+			del_flag AS delFlag
+		FROM SG_SYS_STAFF s
+		WHERE 1 = 1
+		<if test="staffId != null and staffId != ''">
+			AND staff_id = #{staffId}
+		</if>
+		<if test="staffName != null and staffName != ''">
+			AND staff_name = #{staffName}
+		</if>
+		<if test="staffNo != null and staffNo != ''">
+			AND staff_no = #{staffNo}
+		</if>
+		<if test="email != null and email != ''">
+			AND email = #{email}
+		</if>
+		<if test="phone != null and phone != ''">
+			AND phone = #{phone}
+		</if>
+		<if test="mobilePhone != null and mobilePhone != ''">
+			AND mobile_phone = #{mobilePhone}
+		</if>
+		<if test="sex != null and sex != ''">
+			AND sex = #{sex}
+		</if>
+		<if test="address != null and address != ''">
+			AND address = #{address}
+		</if>
+		<if test="birthday != null and birthday != ''">
+			AND birthday = #{birthday}
+		</if>
+		<if test="status != null and status != ''">
+			AND status = #{status}
+		</if>
+		<if test="unitCode != null and unitCode != ''">
+			AND unit_code = #{unitCode}
+		</if>
+		<if test="ownerunitId != null and ownerunitId != ''">
+			AND ownerunit_id = #{ownerunitId}
+		</if>
+		<if test="ext1 != null and ext1 != ''">
+			AND ext1 = #{ext1}
+		</if>
+		<if test="ext2 != null and ext2 != ''">
+			AND ext2 = #{ext2}
+		</if>
+		<if test="ext3 != null and ext3 != ''">
+			AND ext3 = #{ext3}
+		</if>
+		<if test="ext4 != null and ext4 != ''">
+			AND ext4 = #{ext4}
+		</if>
+		<if test="ext5 != null and ext5 != ''">
+			AND ext5 = #{ext5}
+		</if>
+		<if test="ext6 != null and ext6 != ''">
+			AND ext6 = #{ext6}
+		</if>
+		<if test="ext7 != null and ext7 != ''">
+			AND ext7 = #{ext7}
+		</if>
+		<if test="ext8 != null and ext8 != ''">
+			AND ext8 = #{ext8}
+		</if>
+		<if test="ext9 != null and ext9 != ''">
+			AND ext9 = #{ext9}
+		</if>
+		<if test="userType != null and userType != ''">
+			AND user_type = #{userType}
+		</if>
+		<if test="userPhoto != null and userPhoto != ''">
+			AND user_photo = #{userPhoto}
+		</if>
+		<if test="remarks != null and remarks != ''">
+			AND remarks = #{remarks}
+		</if>
+		<if test="updateTime != null and updateTime != ''">
+			AND update_time = #{updateTime}
+		</if>
+		<if test="updateUser != null and updateUser != ''">
+			AND update_user = #{updateUser}
+		</if>
+		<if test="createTime != null and createTime != ''">
+			AND create_time = #{createTime}
+		</if>
+		<if test="createUser != null and createUser != ''">
+			AND create_user = #{createUser}
+		</if>
+		<if test="delFlag != null and delFlag != ''">
+			AND del_flag = #{delFlag}
+		</if>
+		<if test="groupNo != null and groupNo != ''">
+			AND exists(SELECT 1 FROM sg_sys_staff_group g ,sg_sys_group p WHERE p.group_no = g.group_no AND g.staff_no = s.staff_no AND p.del_flag = 'n' AND g.group_no = #{groupNo})
+		</if>
+		<if test="positionNo != null and positionNo != ''">
+			AND exists(select 1 from sg_sys_staff_position sp where sp.staff_no=s.staff_no and sp.position_no=#{positionNo} and sp.del_flag ='n')
+		</if>
+		<if test="checkValue != null and checkValue.length>0  and checkLabeValue != null and checkLabeValue != ''">
+			AND
+			<foreach collection="checkValue" item="item" separator="OR" close=")" open="(">
+				${item} like '%${checkLabeValue}%'
+			</foreach>
+		</if>
+		<if test="unitCodes != null and unitCodes != ''">
+			and unit_code in
+			<foreach collection="unitCodes" item="item" separator="," close=")" open="(">
+				#{item}
+			</foreach>
+		</if>
+		<if test="orderStr != null and orderStr != ''">
+			order by ${orderStr},staffId
+		</if>
+		<if test="orderStr == null or orderStr == ''">
+			order by staffId
+		</if>
+	</select>
+	<select id="count" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+		count(1)
+		FROM SG_SYS_STAFF s
+		WHERE 1 = 1
+		<if test="notStaffId != null and notStaffId != ''">
+			AND staff_id != #{notStaffId}
+		</if>
+		<if test="staffId != null and staffId != ''">
+			AND staff_id = #{staffId}
+		</if>
+		<if test="staffName != null and staffName != ''">
+			AND staff_name = #{staffName}
+		</if>
+		<if test="staffNo != null and staffNo != ''">
+			AND staff_no = #{staffNo}
+		</if>
+		<if test="email != null and email != ''">
+			AND email = #{email}
+		</if>
+		<if test="phone != null and phone != ''">
+			AND phone = #{phone}
+		</if>
+		<if test="mobilePhone != null and mobilePhone != ''">
+			AND mobile_phone = #{mobilePhone}
+		</if>
+		<if test="sex != null and sex != ''">
+			AND sex = #{sex}
+		</if>
+		<if test="address != null and address != ''">
+			AND address = #{address}
+		</if>
+		<if test="birthday != null and birthday != ''">
+			AND birthday = #{birthday}
+		</if>
+		<if test="status != null and status != ''">
+			AND status = #{status}
+		</if>
+		<if test="unitCode != null and unitCode != ''">
+			AND unit_code = #{unitCode}
+		</if>
+		<if test="ownerunitId != null and ownerunitId != ''">
+			AND ownerunit_id = #{ownerunitId}
+		</if>
+		<if test="ext1 != null and ext1 != ''">
+			AND ext1 = #{ext1}
+		</if>
+		<if test="ext2 != null and ext2 != ''">
+			AND ext2 = #{ext2}
+		</if>
+		<if test="ext3 != null and ext3 != ''">
+			AND ext3 = #{ext3}
+		</if>
+		<if test="ext4 != null and ext4 != ''">
+			AND ext4 = #{ext4}
+		</if>
+		<if test="ext5 != null and ext5 != ''">
+			AND ext5 = #{ext5}
+		</if>
+		<if test="ext6 != null and ext6 != ''">
+			AND ext6 = #{ext6}
+		</if>
+		<if test="ext7 != null and ext7 != ''">
+			AND ext7 = #{ext7}
+		</if>
+		<if test="ext8 != null and ext8 != ''">
+			AND ext8 = #{ext8}
+		</if>
+		<if test="ext9 != null and ext9 != ''">
+			AND ext9 = #{ext9}
+		</if>
+		<if test="userType != null and userType != ''">
+			AND user_type = #{userType}
+		</if>
+		<if test="userPhoto != null and userPhoto != ''">
+			AND user_photo = #{userPhoto}
+		</if>
+		<if test="remarks != null and remarks != ''">
+			AND remarks = #{remarks}
+		</if>
+		<if test="updateTime != null and updateTime != ''">
+			AND update_time = #{updateTime}
+		</if>
+		<if test="updateUser != null and updateUser != ''">
+			AND update_user = #{updateUser}
+		</if>
+		<if test="createTime != null and createTime != ''">
+			AND create_time = #{createTime}
+		</if>
+		<if test="createUser != null and createUser != ''">
+			AND create_user = #{createUser}
+		</if>
+		<if test="delFlag != null and delFlag != ''">
+			AND del_flag = #{delFlag}
+		</if>
+		<if test="positionNo != null and positionNo != ''">
+			AND exists(select 1 from sg_sys_staff_position sp where sp.staff_no=s.staff_no and sp.position_no=#{positionNo} and sp.del_flag ='n')
+		</if>
+		<if test="checkValue != null and checkValue.length>0  and checkLabeValue != null and checkLabeValue != ''">
+			AND
+			<foreach collection="checkValue" item="item" separator="OR" close=")" open="(">
+				${item} like '%${checkLabeValue}%'
+			</foreach>
+		</if>
+		<if test="unitCodes != null and unitCodes != ''">
+			and unit_code in
+			<foreach collection="unitCodes" item="item" separator="," close=")" open="(">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+	<insert id="insert" parameterType="com.oneself.cloud.provider.user.model.SgSysStaffVO">
+		INSERT INTO sg_sys_staff(
+		staff_id
+		<if test="staffName != null and staffName != ''">
+			,staff_name
+		</if>
+		<if test="staffNo != null and staffNo != ''">
+			,staff_no
+		</if>
+		<if test="email != null and email != ''">
+			,email
+		</if>
+		<if test="phone != null and phone != ''">
+			,phone
+		</if>
+		<if test="mobilePhone != null and mobilePhone != ''">
+			,mobile_phone
+		</if>
+		<if test="sex != null and sex != ''">
+			,sex
+		</if>
+		<if test="address != null and address != ''">
+			,address
+		</if>
+		<if test="birthday != null and birthday != ''">
+			,birthday
+		</if>
+		<if test="status != null and status != ''">
+			,status
+		</if>
+		<if test="unitCode != null and unitCode != ''">
+			,unit_code
+		</if>
+		<if test="ownerunitId != null and ownerunitId != ''">
+			,ownerunit_id
+		</if>
+		<if test="ext1 != null and ext1 != ''">
+			,ext1
+		</if>
+		<if test="ext2 != null and ext2 != ''">
+			,ext2
+		</if>
+		<if test="ext3 != null and ext3 != ''">
+			,ext3
+		</if>
+		<if test="ext4 != null and ext4 != ''">
+			,ext4
+		</if>
+		<if test="ext5 != null and ext5 != ''">
+			,ext5
+		</if>
+		<if test="ext6 != null and ext6 != ''">
+			,ext6
+		</if>
+		<if test="ext7 != null and ext7 != ''">
+			,ext7
+		</if>
+		<if test="ext8 != null and ext8 != ''">
+			,ext8
+		</if>
+		<if test="ext9 != null and ext9 != ''">
+			,ext9
+		</if>
+		<if test="userType != null and userType != ''">
+			,user_type
+		</if>
+		<if test="userPhoto != null and userPhoto != ''">
+			,user_photo
+		</if>
+		<if test="remarks != null and remarks != ''">
+			,remarks
+		</if>
+		<if test="updateTime != null and updateTime != ''">
+			,update_time
+		</if>
+		<if test="updateUser != null and updateUser != ''">
+			,update_user
+		</if>
+		<if test="createTime != null and createTime != ''">
+			,create_time
+		</if>
+		<if test="createUser != null and createUser != ''">
+			,create_user
+		</if>
+		<if test="delFlag != null and delFlag != ''">
+			,del_flag
+		</if>
+
+		)
+		VALUES(
+		#{staffId}
+		<if test="staffName != null and staffName != ''">
+			,#{staffName}
+		</if>
+		<if test="staffNo != null and staffNo != ''">
+			,#{staffNo}
+		</if>
+		<if test="email != null and email != ''">
+			,#{email}
+		</if>
+		<if test="phone != null and phone != ''">
+			,#{phone}
+		</if>
+		<if test="mobilePhone != null and mobilePhone != ''">
+			,#{mobilePhone}
+		</if>
+		<if test="sex != null and sex != ''">
+			,#{sex}
+		</if>
+		<if test="address != null and address != ''">
+			,#{address}
+		</if>
+		<if test="birthday != null and birthday != ''">
+			,#{birthday}
+		</if>
+		<if test="status != null and status != ''">
+			,#{status}
+		</if>
+		<if test="unitCode != null and unitCode != ''">
+			,#{unitCode}
+		</if>
+		<if test="ownerunitId != null and ownerunitId != ''">
+			,#{ownerunitId}
+		</if>
+		<if test="ext1 != null and ext1 != ''">
+			,#{ext1}
+		</if>
+		<if test="ext2 != null and ext2 != ''">
+			,#{ext2}
+		</if>
+		<if test="ext3 != null and ext3 != ''">
+			,#{ext3}
+		</if>
+		<if test="ext4 != null and ext4 != ''">
+			,#{ext4}
+		</if>
+		<if test="ext5 != null and ext5 != ''">
+			,#{ext5}
+		</if>
+		<if test="ext6 != null and ext6 != ''">
+			,#{ext6}
+		</if>
+		<if test="ext7 != null and ext7 != ''">
+			,#{ext7}
+		</if>
+		<if test="ext8 != null and ext8 != ''">
+			,#{ext8}
+		</if>
+		<if test="ext9 != null and ext9 != ''">
+			,#{ext9}
+		</if>
+		<if test="userType != null and userType != ''">
+			,#{userType}
+		</if>
+		<if test="userPhoto != null and userPhoto != ''">
+			,#{userPhoto}
+		</if>
+		<if test="remarks != null and remarks != ''">
+			,#{remarks}
+		</if>
+		<if test="updateTime != null and updateTime != ''">
+			,#{updateTime}
+		</if>
+		<if test="updateUser != null and updateUser != ''">
+			,#{updateUser}
+		</if>
+		<if test="createTime != null and createTime != ''">
+			,#{createTime}
+		</if>
+		<if test="createUser != null and createUser != ''">
+			,#{createUser}
+		</if>
+		<if test="delFlag != null and delFlag != ''">
+			,#{delFlag}
+		</if>
+
+		)
+	</insert>
+
+	<update id="update" parameterType="com.oneself.cloud.provider.user.model.SgSysStaffVO">
+		UPDATE sg_sys_staff SET
+		update_time = #{updateTime}
+		,update_user = #{updateUser}
+		<if test="staffName != null and staffName != ''">
+			,staff_name = #{staffName}
+		</if>
+		<if test="staffNo != null and staffNo != ''">
+			,staff_no = #{staffNo}
+		</if>
+		<if test="email != null and email != ''">
+			,email = #{email}
+		</if>
+		<if test="phone != null and phone != ''">
+			,phone = #{phone}
+		</if>
+		<if test="mobilePhone != null and mobilePhone != ''">
+			,mobile_phone = #{mobilePhone}
+		</if>
+		<if test="sex != null and sex != ''">
+			,sex = #{sex}
+		</if>
+		<if test="address != null and address != ''">
+			,address = #{address}
+		</if>
+		<if test="birthday != null and birthday != ''">
+			,birthday = #{birthday}
+		</if>
+		<if test="status != null and status != ''">
+			,status = #{status}
+		</if>
+		<if test="unitCode != null and unitCode != ''">
+			,unit_code = #{unitCode}
+		</if>
+		<if test="ownerunitId != null and ownerunitId != ''">
+			,ownerunit_id = #{ownerunitId}
+		</if>
+		<if test="ext1 != null and ext1 != ''">
+			,ext1 = #{ext1}
+		</if>
+		<if test="ext2 != null and ext2 != ''">
+			,ext2 = #{ext2}
+		</if>
+		<if test="ext3 != null and ext3 != ''">
+			,ext3 = #{ext3}
+		</if>
+		<if test="ext4 != null and ext4 != ''">
+			,ext4 = #{ext4}
+		</if>
+		<if test="ext5 != null and ext5 != ''">
+			,ext5 = #{ext5}
+		</if>
+		<if test="ext6 != null and ext6 != ''">
+			,ext6 = #{ext6}
+		</if>
+		<if test="ext7 != null and ext7 != ''">
+			,ext7 = #{ext7}
+		</if>
+		<if test="ext8 != null and ext8 != ''">
+			,ext8 = #{ext8}
+		</if>
+		<if test="ext9 != null and ext9 != ''">
+			,ext9 = #{ext9}
+		</if>
+		<if test="userType != null and userType != ''">
+			,user_type = #{userType}
+		</if>
+		<if test="userPhoto != null and userPhoto != ''">
+			,user_photo = #{userPhoto}
+		</if>
+		<if test="remarks != null and remarks != ''">
+			,remarks = #{remarks}
+		</if>
+		<if test="createTime != null and createTime != ''">
+			,create_time = #{createTime}
+		</if>
+		<if test="createUser != null and createUser != ''">
+			,create_user = #{createUser}
+		</if>
+		<if test="delFlag != null and delFlag != ''">
+			,del_flag = #{delFlag}
+		</if>
+		where staff_id = #{staffId}
+	</update>
+</mapper>

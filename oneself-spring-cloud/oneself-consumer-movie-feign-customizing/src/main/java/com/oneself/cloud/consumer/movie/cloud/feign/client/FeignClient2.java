@@ -13,8 +13,7 @@ import com.oneself.cloud.consumer.movie.config.Configuration2;
  */
 @FeignClient(name = "shiyajing", url = "http://localhost:8760/", configuration = Configuration2.class)
 public interface FeignClient2 {
-	
-  @RequestMapping(value = "/eureka/apps/{serviceName}")
-  public String findServiceInfoFromEurekaByServiceName(@PathVariable("serviceName") String serviceName);
-}
 
+	@RequestMapping(value = "/eureka/apps/{serviceName}")
+	public String findServiceInfoFromEurekaByServiceName(@PathVariable("serviceName") String serviceName);
+}

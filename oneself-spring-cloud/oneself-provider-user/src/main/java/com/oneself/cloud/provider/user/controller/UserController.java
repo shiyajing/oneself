@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.netflix.appinfo.InstanceInfo;
 import com.netflix.discovery.EurekaClient;
-import com.oneself.cloud.provider.user.model.ShUserInfoVO;
+import com.oneself.cloud.provider.user.model.SgSysStaffVO;
 import com.oneself.cloud.provider.user.service.IUserInfoService;
 
 @RestController
@@ -42,16 +42,16 @@ public class UserController {
 	 * @return user信息
 	 */
 	@GetMapping("/simple/getUser/{username}")
-	public @ResponseBody ShUserInfoVO findById(@PathVariable String username) {
-		List<ShUserInfoVO> user = service.queryUser(username);
+	public @ResponseBody SgSysStaffVO findById(@PathVariable String username) {
+		List<SgSysStaffVO> user = service.queryUser(username);
 		return user.get(0);
 	}
 
 	@PostMapping("/simple/register")
-	public @ResponseBody ShUserInfoVO register(@RequestBody String json) {
-		ShUserInfoVO user = JSONObject.parseObject(json, ShUserInfoVO.class, Feature.AllowSingleQuotes);
-		user.setUserId(UUID.randomUUID().toString().replace("-", ""));
-		ShUserInfoVO vo = service.saveUser(user);
+	public @ResponseBody SgSysStaffVO register(@RequestBody String json) {
+		SgSysStaffVO user = JSONObject.parseObject(json, SgSysStaffVO.class, Feature.AllowSingleQuotes);
+		user.setStaffId(UUID.randomUUID().toString().replace("-", ""));
+		SgSysStaffVO vo = service.saveUser(user);
 		return vo;
 	}
 

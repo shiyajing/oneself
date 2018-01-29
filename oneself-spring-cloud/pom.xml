@@ -80,8 +80,8 @@
         
         <module>oneself-provider-qrcode</module>
         <module>oneself-provider-user</module>
-        
         <module>oneself-consumer-movie</module>
+        
         <module>oneself-consumer-movie-ribbon</module>
 		<module>oneself-consumer-movie-ribbon-test</module>
 		<module>oneself-consumer-movie-ribbon-properties-customizing</module>

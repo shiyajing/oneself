@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.oneself.cloud.consumer.movie.model.ShUserInfoVO;
+import com.oneself.cloud.consumer.movie.model.SgSysStaffVO;
 
 /**
  * @author shiyajing
@@ -17,8 +17,8 @@ public class RibbonService {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-	public ShUserInfoVO queryUser(String name) {
+	public SgSysStaffVO queryUser(String name) {
 	    // http://服务提供者的serviceId/url
-	    return this.restTemplate.getForObject("http://oneself-provider-user/userinfo/simple/getUser/" + name, ShUserInfoVO.class);
+	    return this.restTemplate.getForObject("http://oneself-provider-user/userinfo/simple/getUser/" + name, SgSysStaffVO.class);
 	}
 }
